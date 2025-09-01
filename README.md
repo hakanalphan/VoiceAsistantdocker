@@ -81,7 +81,7 @@ docker run -it -p 5000:5000 --env-file .env voiceassistant2
    👉 [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ---
-Tabii! README için düzgün ve okunabilir şekilde yazılmış hâli şöyle:
+
 
 ````markdown
 ##  Kurulum (Docker Olmadan)
@@ -168,6 +168,7 @@ Tarayıcıdan açın:
 👉 http://127.0.0.1:5000
 
 ```
+
 
 
 
