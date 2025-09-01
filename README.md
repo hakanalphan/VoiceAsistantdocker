@@ -17,13 +17,11 @@ Kullanıcıların ses ile soru sormasını ve AI’dan sesli yanıt almasını s
 * 🛡️ **Güvenlik** → Dosya validasyonu, hata yönetimi ve güvenli API kullanımı
 
 ---
----
-
 ## ⚠️ Önemli Notlar - Few-shot Örneği
 
 Elimde RAG veya fine-tuning için kullanılacak hazır bir veri olmadığından, modelin yanıtlarını yönlendirmek için Few-shot kullandım. Bu kısmı kaldırıp kendi verinizle RAG veya fine-tuning deneyebilirsiniz.
 
-```json
+````json
 [
     {"role": "user", "content": "Siparişim nerede?"},
     {"role": "assistant", "content": "Siparişiniz kargoya verilmiş olup, 4 iş günü içinde teslim edilmesi beklenmektedir."},
@@ -34,6 +32,7 @@ Elimde RAG veya fine-tuning için kullanılacak hazır bir veri olmadığından,
     {"role": "user", "content": "Teslimat adresimi değiştirebilir miyim?"},
     {"role": "assistant", "content": "Siparişiniz henüz kargoya verilmediyse, adres değişikliğini müşteri panelinizden yapabilirsiniz. Eğer kargoya verildiyse kargo firması ile iletişime geçmeniz gerekir."}
 ]
+
 
 ```markdown
 ## 🖥️ Model Çalışır Hali
@@ -75,6 +74,7 @@ docker run -it -p 5000:5000 --env-file .env voiceassistant2
 ---
 
 ⚡ Artık mikrofonunuzla soru sorabilir ve AI’dan anında sesli yanıt alabilirsiniz!
+
 
 
 
