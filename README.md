@@ -135,39 +135,8 @@ python app.py
 
 ```
 
-```
-##  Kurulum (Docker olmadan)
-🔹 Docker Olmadan / Local
-
-Repo’yu klonlayın ve klasöre girin:
-
-git clone https://github.com/hakanalphan/VoiceAsistantdocker.git
-cd VoiceAsistantdocker
 
 
-
-
-
-Bağımlılıkları yükleyin:
-
-pip install -r requirements.txt
-
-
-.env dosyasına API key’leri ekleyin:
-
-OPENAI_API_KEY=sk-your-openai-api-key
-TOGETHER_API_KEY=your-together-api-key
-
-
-Uygulamayı çalıştırın:
-
-python app.py
-
-
-Tarayıcıdan açın:
-👉 http://127.0.0.1:5000
-
-```
 
 
 
