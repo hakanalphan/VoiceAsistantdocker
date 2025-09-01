@@ -31,7 +31,7 @@ class VoiceAssistantAPI:
             if file_size == 0:
                 logger.error("Ses dosyası boş")
                 return "Ses dosyası boş"
-            if file_size > 25 * 1024 * 1024:  # 25MB limit
+            if file_size > 25 * 1024 * 1024:
                 logger.error("Ses dosyası çok büyük")
                 return "Ses dosyası çok büyük"
 
@@ -55,14 +55,7 @@ class VoiceAssistantAPI:
 
         except Exception as e:
             logger.error(f"STT hatası: {str(e)}")
-            if "rate limit" in str(e).lower():
-                return "API rate limit aşıldı"
-            elif "invalid" in str(e).lower():
-                return "Geçersiz ses dosyası"
-            elif "timeout" in str(e).lower():
-                return "İstek zaman aşımı"
-            else:
-                return "Ses tanıma hatası"
+            return "Ses tanıma hatası"
 
     # Together AI ile Mistral yanıt üretme
     def generate_assistant_response(self, user_message: str) -> dict:
@@ -77,51 +70,32 @@ class VoiceAssistantAPI:
             "Authorization": f"Bearer {TOGETHER_API_KEY}",
             "Content-Type": "application/json"
         }
-        
+
         payload = {
             "model": MISTRAL_MODEL,
             "messages": [
-                {
-                    "role": "system",
-                    "content": (
-                        "Sen bir e-ticaret müşteri hizmetleri asistanısın. "
-                        "Türkçe konuş, kısa, anlaşılır ve net yanıtlar ver. "
-                        "Her zaman nazik, profesyonel ve kullanıcı dostu ol. "
-                        "Kullanıcılar genellikle sipariş takibi, kargo durumu, teslimat zamanı ve iade süreçleri hakkında soru sorar. "
-                        "Yanıtlarda mümkünse adım adım yönlendirme yap ve gereksiz detaylara girme. "
-                        "Sipariş numarası, kargo takip numarası veya iade talebi gibi bilgileri kullanıcıdan gerektiğinde kibarca iste. "
-                        "Yanıtların bilgilendirici, çözüm odaklı ve güven verici olsun."
-                    )
-                },
-                {
-                    "role": "user",
-                    "content": user_message
-                }
+                {"role": "system",
+                 "content": "Sen bir e-ticaret müşteri hizmetleri asistanısın. "
+                            "Türkçe konuş, kısa ve net yanıtlar ver. Nazik ve profesyonel ol."},
+                {"role": "user", "content": user_message}
             ],
             "max_tokens": 150,
-            "temperature": 0.7,
+            "temperature": 0.5,
             "top_p": 0.9,
             "stream": False
         }
-        
+
         try:
             logger.info(f"AI yanıtı istek gönderiliyor: '{user_message}'")
-            response = requests.post(
-                TOGETHER_BASE_URL,
-                headers=headers,
-                json=payload,
-                timeout=30
-            )
-            
-            if response.status_code == 200:
-                result = response.json()
-                assistant_response = result["choices"][0]["message"]["content"].strip()
-                logger.info(f"AI yanıtı alındı: '{assistant_response[:50]}...'")
-                return {"assistant_response": assistant_response}
-            else:
-                logger.error(f"Together API hatası: {response.status_code} - {response.text}")
-                return {"assistant_response": f"API hatası: {response.status_code}"}
-                
+            response = requests.post(TOGETHER_BASE_URL, headers=headers, json=payload, timeout=30)
+            response.raise_for_status()
+
+            result = response.json()
+            # Mistral API yapısına göre uyarlayın
+            assistant_response = result.get("choices", [{}])[0].get("message", {}).get("content", "").strip()
+            logger.info(f"AI yanıtı alındı: '{assistant_response[:50]}...'")
+            return {"assistant_response": assistant_response or "Yanıt boş döndü"}
+
         except requests.exceptions.Timeout:
             logger.error("Together API timeout")
             return {"assistant_response": "Yanıt süresi aşıldı"}
@@ -149,7 +123,6 @@ class VoiceAssistantAPI:
             filename = f"{filename_prefix}_{uuid.uuid4().hex[:8]}.wav"
             output_path = RESPONSES_DIR / filename
 
-            # ✅ Doğru kullanım
             with client.audio.speech.with_streaming_response.create(
                 model="gpt-4o-mini-tts",
                 voice=voice if voice in self.available_voices else "nova",
@@ -159,8 +132,10 @@ class VoiceAssistantAPI:
 
             logger.info(f"TTS dosyası oluşturuldu: {output_path}")
             return str(output_path)
-            
+
         except Exception as e:
             logger.error(f"TTS hatası: {str(e)}")
             return None
+
+
 
