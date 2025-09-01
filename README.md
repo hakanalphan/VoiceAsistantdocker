@@ -2,25 +2,30 @@
 
 
 
+````markdown
 # 🎤 Voice Assistant - E-Ticaret Ses Asistanı
 
-Kullanıcıların ses ile soru sormasını ve AI’dan sesli yanıt almasını sağlayan modern bir sesli asistan uygulaması. E-ticaret odaklıdır ve sipariş takibi, kargo durumu, iade süreçleri gibi müşteri hizmetleri sorularına yanıt verir.
+Kullanıcıların ses ile soru sormasını ve AI’dan sesli yanıt almasını sağlayan modern bir sesli asistan uygulaması.  
+E-ticaret odaklıdır ve sipariş takibi, kargo durumu, iade süreçleri gibi müşteri hizmetleri sorularına yanıt verir.
 
 ---
 
 ## 🌟 Özellikler
 
-* 🎤 **Ses Tanıma (STT)** → OpenAI Whisper ile Türkçe ses tanıma
-* 🤖 **AI Yanıtları** → Together AI (Mistral 7B) ile akıllı yanıtlar
-* 🔊 **Ses Üretimi (TTS)** → OpenAI TTS ile doğal ses sentezi
-* 🌐 **Web Arayüzü** → Flask tabanlı, kullanıcı dostu ve hızlı
-* 🛡️ **Güvenlik** → Dosya validasyonu, hata yönetimi ve güvenli API kullanımı
+* 🎤 **Ses Tanıma (STT)** → OpenAI Whisper ile Türkçe ses tanıma  
+* 🤖 **AI Yanıtları** → Together AI (Mistral 7B) ile akıllı yanıtlar  
+* 🔊 **Ses Üretimi (TTS)** → OpenAI TTS ile doğal ses sentezi  
+* 🌐 **Web Arayüzü** → Flask tabanlı, kullanıcı dostu ve hızlı  
+* 🛡️ **Güvenlik** → Dosya validasyonu, hata yönetimi ve güvenli API kullanımı  
 
 ---
+
 ## ⚠️ Önemli Notlar - Few-shot Örneği
 
-Elimde RAG veya fine-tuning için kullanılacak hazır bir veri olmadığından, modelin yanıtlarını yönlendirmek için Few-shot kullandım. Bu kısmı kaldırıp kendi verinizle RAG veya fine-tuning deneyebilirsiniz.
+Elimde RAG veya fine-tuning için kullanılacak hazır bir veri olmadığından, modelin yanıtlarını yönlendirmek için **Few-shot** kullandım.  
+Bu kısmı kaldırıp kendi verinizle RAG veya fine-tuning deneyebilirsiniz.
 
+```json
 [
     {"role": "user", "content": "Siparişim nerede?"},
     {"role": "assistant", "content": "Siparişiniz kargoya verilmiş olup, 4 iş günü içinde teslim edilmesi beklenmektedir."},
@@ -31,6 +36,7 @@ Elimde RAG veya fine-tuning için kullanılacak hazır bir veri olmadığından,
     {"role": "user", "content": "Teslimat adresimi değiştirebilir miyim?"},
     {"role": "assistant", "content": "Siparişiniz henüz kargoya verilmediyse, adres değişikliğini müşteri panelinizden yapabilirsiniz. Eğer kargoya verildiyse kargo firması ile iletişime geçmeniz gerekir."}
 ]
+````
 
 ---
 
@@ -39,7 +45,53 @@ Elimde RAG veya fine-tuning için kullanılacak hazır bir veri olmadığından,
 Aşağıda Voice Assistant modelinin çalışır haldeki ekran görüntüsü gösterilmektedir:
 
 ![Model Çalışır Hal](ekran_goruntusu.png)
-## 3️⃣ Kurulum (Docker ile)
+
+---
+
+## 1️⃣ Kurulum (Docker’siz)
+
+1. Repo’yu klonlayın ve klasöre girin:
+
+```bash
+git clone https://github.com/hakanalphan/VoiceAsistantdocker.git
+cd VoiceAsistantdocker
+```
+
+2. Virtual environment oluşturun ve aktif edin:
+
+```bash
+python -m venv venv
+# Windows
+venv\Scripts\activate
+# Linux / Mac
+source venv/bin/activate
+```
+
+3. Gerekli paketleri yükleyin:
+
+```bash
+pip install -r requirements.txt
+```
+
+4. `.env` dosyasına API key’leri ekleyin:
+
+```
+OPENAI_API_KEY=sk-your-openai-api-key
+TOGETHER_API_KEY=your-together-api-key
+```
+
+5. Uygulamayı başlatın:
+
+```bash
+python app.py
+```
+
+6. Tarayıcıdan açın:
+   👉 [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+---
+
+## 2️⃣ Kurulum (Docker ile)
 
 1. Repo’yu klonlayın ve klasöre girin:
 
@@ -50,10 +102,10 @@ cd VoiceAsistantdocker
 
 2. `.env` dosyasına API key’leri ekleyin:
 
-
+```
 OPENAI_API_KEY=sk-your-openai-api-key
 TOGETHER_API_KEY=your-together-api-key
-
+```
 
 3. Docker imajını build edin:
 
@@ -74,8 +126,7 @@ docker run -it -p 5000:5000 --env-file .env voiceassistant2
 
 ⚡ Artık mikrofonunuzla soru sorabilir ve AI’dan anında sesli yanıt alabilirsiniz!
 
-
-
+```
 
 
 
