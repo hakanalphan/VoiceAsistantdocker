@@ -81,10 +81,50 @@ docker run -it -p 5000:5000 --env-file .env voiceassistant2
    👉 [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ---
+##  Kurulum (Docker olmadan)
+🔹 Docker Olmadan / Local
 
-⚡ Artık mikrofonunuzla soru sorabilir ve AI’dan anında sesli yanıt alabilirsiniz!
+Repo’yu klonlayın ve klasöre girin:
+
+git clone https://github.com/hakanalphan/VoiceAsistantdocker.git
+cd VoiceAsistantdocker
+
+
+Virtual environment oluşturun ve aktif edin:
+
+Windows:
+
+python -m venv venv
+venv\Scripts\activate
+
+
+Linux / Mac:
+
+python3 -m venv venv
+source venv/bin/activate
+
+
+Bağımlılıkları yükleyin:
+
+pip install -r requirements.txt
+
+
+.env dosyasına API key’leri ekleyin:
+
+OPENAI_API_KEY=sk-your-openai-api-key
+TOGETHER_API_KEY=your-together-api-key
+
+
+Uygulamayı çalıştırın:
+
+python app.py
+
+
+Tarayıcıdan açın:
+👉 http://127.0.0.1:5000
 
 ```
+
 
 
 
