@@ -53,12 +53,15 @@ Elimde RAG veya fine-tuning için kullanılacak hazır bir veri olmadığından,
 {
     "role": "assistant",
     "content": "Siparişiniz henüz kargoya verilmediyse, adres değişikliğini müşteri panelinizden yapabilirsiniz. Eğer kargoya verildiyse kargo firması ile iletişime geçmeniz gerekir."
-},
-{
-    "role": "user",
-    "content": "Gerçek kullanıcı sorusu buraya gelecek"
 }
+'''
 
+```markdown
+## 🖥️ Model Çalışır Hali
+
+Aşağıda Voice Assistant modelinin çalışır haldeki ekran görüntüsü gösterilmektedir:
+
+![Model Çalışır Hal](Ekran görüntüsü.png)
 
 ## 3️⃣ Kurulum (Docker ile)
 
@@ -94,6 +97,7 @@ docker run -it -p 5000:5000 --env-file .env voiceassistant2
 ---
 
 ⚡ Artık mikrofonunuzla soru sorabilir ve AI’dan anında sesli yanıt alabilirsiniz!
+
 
 
 
