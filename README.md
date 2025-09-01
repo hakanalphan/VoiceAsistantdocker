@@ -23,7 +23,7 @@ E-ticaret odaklıdır ve sipariş takibi, kargo durumu, iade süreçleri gibi m�
 ## ⚠️ Önemli Notlar - Few-shot Örneği
 
 Elimde RAG veya fine-tuning için kullanılacak hazır bir veri olmadığından, modelin yanıtlarını yönlendirmek için **Few-shot** kullandım.  
-Bu kısmı kaldırıp kendi verinizle RAG veya fine-tuning deneyebilirsiniz.
+Bu kısmı kaldırıpda deneyebilirsiniz.
 
 ```json
 [
@@ -85,6 +85,7 @@ docker run -it -p 5000:5000 --env-file .env voiceassistant2
 ⚡ Artık mikrofonunuzla soru sorabilir ve AI’dan anında sesli yanıt alabilirsiniz!
 
 ```
+
 
 
 
