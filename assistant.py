@@ -71,13 +71,56 @@ class VoiceAssistantAPI:
             "Content-Type": "application/json"
         }
 
+        # ----- Few-shot ile payload -----
         payload = {
             "model": MISTRAL_MODEL,
             "messages": [
-                {"role": "system",
-                 "content": "Sen bir e-ticaret müşteri hizmetleri asistanısın. "
-                            "Türkçe konuş, kısa ve net yanıtlar ver. Nazik ve profesyonel ol."},
-                {"role": "user", "content": user_message}
+                {
+                    "role": "system",
+                    "content": (
+                        "Sen bir e-ticaret müşteri hizmetleri asistanısın. "
+                        "Türkçe konuş, kısa, anlaşılır ve net yanıtlar ver. "
+                        "Her zaman nazik, profesyonel ve kullanıcı dostu ol. "
+                        "Yanıtların bilgilendirici, çözüm odaklı ve güven verici olsun."
+                    )
+                },
+                {
+                    "role": "user",
+                    "content": "Siparişim nerede?"
+                },
+                {
+                    "role": "assistant",
+                    "content": "Siparişiniz kargoya verilmiş olup, 4 iş günü içinde teslim edilmesi beklenmektedir."
+                },
+                {
+                    "role": "user",
+                    "content": "Kargom ne zaman gelir?"
+                },
+                {
+                    "role": "assistant",
+                    "content": "Kargonuz yola çıkmıştır, 2-3 iş günü içinde adresinize teslim edilmesi beklenmektedir."
+                },
+                {
+                    "role": "user",
+                    "content": "İade nasıl yapabilirim?"
+                },
+                {
+                    "role": "assistant",
+                    "content": "Ürün iadesi için hesabınıza giriş yapıp, 'Siparişlerim' bölümünden iade talebi oluşturabilirsiniz. Kargo görevlisi ürünü adresinizden alacaktır."
+                },
+                {
+                    "role": "user",
+                    "content": "Teslimat adresimi değiştirebilir miyim?"
+                },
+                {
+                    "role": "assistant",
+                    "content": "Siparişiniz henüz kargoya verilmediyse, adres değişikliğini müşteri panelinizden yapabilirsiniz. Eğer kargoya verildiyse kargo firması ile iletişime geçmeniz gerekir."
+                },
+                # Gerçek kullanıcı sorusu
+                {
+                    "role": "user",
+                    "content": user_message
+                }
             ],
             "max_tokens": 150,
             "temperature": 0.5,
@@ -91,7 +134,6 @@ class VoiceAssistantAPI:
             response.raise_for_status()
 
             result = response.json()
-            # Mistral API yapısına göre uyarlayın
             assistant_response = result.get("choices", [{}])[0].get("message", {}).get("content", "").strip()
             logger.info(f"AI yanıtı alındı: '{assistant_response[:50]}...'")
             return {"assistant_response": assistant_response or "Yanıt boş döndü"}
@@ -136,6 +178,7 @@ class VoiceAssistantAPI:
         except Exception as e:
             logger.error(f"TTS hatası: {str(e)}")
             return None
+
 
 
 
