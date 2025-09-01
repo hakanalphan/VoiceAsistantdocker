@@ -71,7 +71,6 @@ class VoiceAssistantAPI:
             "Content-Type": "application/json"
         }
 
-        # ----- Few-shot ile payload -----
         payload = {
             "model": MISTRAL_MODEL,
             "messages": [
@@ -84,6 +83,11 @@ class VoiceAssistantAPI:
                         "Yanıtların bilgilendirici, çözüm odaklı ve güven verici olsun."
                     )
                 },
+
+# ----- Elimde RAG veya fine-tuning için kullanılacak hazır bir veri olmadığından, 
+#       modelin yanıtlarını yönlendirmek için Few-shot kullandım. -----
+
+
                 {
                     "role": "user",
                     "content": "Siparişim nerede?"
@@ -178,6 +182,7 @@ class VoiceAssistantAPI:
         except Exception as e:
             logger.error(f"TTS hatası: {str(e)}")
             return None
+
 
 
 
