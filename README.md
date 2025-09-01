@@ -61,8 +61,7 @@ Elimde RAG veya fine-tuning için kullanılacak hazır bir veri olmadığından,
 
 Aşağıda Voice Assistant modelinin çalışır haldeki ekran görüntüsü gösterilmektedir:
 
-![Model Çalışır Hal](Ekran görüntüsü.png)
-
+![Model Çalışır Hal](ekran_goruntusu.png)
 ## 3️⃣ Kurulum (Docker ile)
 
 1. Repo’yu klonlayın ve klasöre girin:
@@ -97,6 +96,7 @@ docker run -it -p 5000:5000 --env-file .env voiceassistant2
 ---
 
 ⚡ Artık mikrofonunuzla soru sorabilir ve AI’dan anında sesli yanıt alabilirsiniz!
+
 
 
 
